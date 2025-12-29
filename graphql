@@ -1,0 +1,119 @@
+slm-agentic-student-assessment/
+│
+├── README.md
+├── .gitignore
+├── docker-compose.yml
+├── Makefile
+│
+├── backend/
+│   ├── app/
+│   │   ├── main.py                 # FastAPI entry point
+│   │   ├── api/
+│   │   │   ├── v1/
+│   │   │   │   ├── auth.py          # Login / JWT
+│   │   │   │   ├── assessment.py    # Start tests, submit answers
+│   │   │   │   ├── results.py       # Fetch scores & ranks
+│   │   │   │   └── admin.py         # Admin / monitoring
+│   │   │
+│   │   ├── agents/                 # Agent runtimes (NOT just prompts)
+│   │   │   ├── orchestrator.py
+│   │   │   ├── coding_agent.py
+│   │   │   ├── aptitude_agent.py
+│   │   │   ├── interview_agent.py
+│   │   │   ├── supervisor_agent.py
+│   │   │   └── meta_scoring_agent.py
+│   │   │
+│   │   ├── prompts/                # Prompt templates (loaded at runtime)
+│   │   │   ├── orchestrator.txt
+│   │   │   ├── coding_agent.txt
+│   │   │   ├── aptitude_agent.txt
+│   │   │   ├── interview_agent.txt
+│   │   │   ├── supervisor_agent.txt
+│   │   │   └── meta_scoring_agent.txt
+│   │   │
+│   │   ├── context/                # Context engineering logic
+│   │   │   ├── builder.py           # Builds agent-specific context
+│   │   │   ├── contracts.py         # What each agent can/can’t see
+│   │   │   └── filters.py           # Context pruning & sanitization
+│   │   │
+│   │   ├── evaluation/              # Deterministic scoring logic
+│   │   │   ├── coding.py
+│   │   │   ├── aptitude.py
+│   │   │   ├── interview.py
+│   │   │   └── normalization.py
+│   │   │
+│   │   ├── vector_db/               # Vector DB integration
+│   │   │   ├── client.py            # Pinecone / FAISS / Milvus wrapper
+│   │   │   ├── embeddings.py        # Code / text embedding logic
+│   │   │   ├── retrieval.py         # Similarity search
+│   │   │   └── plagiarism.py        # Plagiarism & uniqueness logic
+│   │   │
+│   │   ├── models/                  # Pydantic schemas
+│   │   │   ├── student.py
+│   │   │   ├── assessment.py
+│   │   │   └── evaluation.py
+│   │   │
+│   │   ├── services/                # Business logic
+│   │   │   ├── auth_service.py
+│   │   │   ├── assessment_service.py
+│   │   │   ├── scoring_service.py
+│   │   │   └── ranking_service.py
+│   │   │
+│   │   ├── storage/                 # Databases (non-vector)
+│   │   │   ├── db.py                # PostgreSQL / Mongo connection
+│   │   │   ├── repositories/
+│   │   │   │   ├── student_repo.py
+│   │   │   │   └── assessment_repo.py
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── logging.py
+│   │   │   ├── metrics.py
+│   │   │   └── security.py
+│   │   │
+│   │   └── config/
+│   │       ├── settings.py
+│   │       └── constants.py
+│   │
+│   ├── tests/
+│   │   ├── test_agents.py
+│   │   ├── test_plagiarism.py
+│   │   └── test_ranking.py
+│   │
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── web/
+│   │   ├── src/
+│   │   │   ├── pages/               # Login, Tests, Results
+│   │   │   ├── components/
+│   │   │   ├── services/            # API calls
+│   │   │   └── hooks/
+│   │   ├── public/
+│   │   └── package.json
+│   │
+│   └── admin/
+│       ├── src/                     # Admin dashboards
+│       └── package.json
+│
+├── infra/
+│   ├── docker/
+│   │   ├── backend.Dockerfile
+│   │   └── frontend.Dockerfile
+│   │
+│   ├── k8s/                         # Optional
+│   │   ├── backend.yaml
+│   │   └── vector-db.yaml
+│   │
+│   └── terraform/                  # Optional cloud provisioning
+│
+├── scripts/
+│   ├── seed_data.py
+│   ├── run_local.sh
+│   └── evaluate_agents.py
+│
+├── docs/                            # Architecture & explanations
+│   ├── architecture.md
+│   ├── context_engineering.md
+│   └── flow_diagram.png
+│
+└── LICENSE
